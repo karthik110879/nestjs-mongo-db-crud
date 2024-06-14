@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateBusinessDto } from 'src/dto/create-business.dto';
-import { UpdateBusinessDto } from 'src/dto/update-business.dto';
-import { IBusiness } from 'src/interface/business.interface';
+import { CreateBusinessDto } from 'src/shared/dto/create-business.dto';
+import { UpdateBusinessDto } from 'src/shared/dto/update-business.dto'; 
+import { IBusiness } from 'src/shared/interface/business.interface';
 
 @Injectable()
 export class BusinessService {

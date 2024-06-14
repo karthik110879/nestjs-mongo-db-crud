@@ -16,6 +16,8 @@ export class Business {
     businessPhone: number;
     @Prop()
     branchCount: number;
+    @Prop()
+    branches: [];
 }
 
 export const BusinessSchema = SchemaFactory.createForClass(Business);

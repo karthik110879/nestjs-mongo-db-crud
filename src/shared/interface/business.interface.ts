@@ -7,5 +7,6 @@ export interface IBusiness extends Document {
     readonly contactPersonName: string;
     readonly contactPersonPhone: number;
     readonly businessPhone: number;
-    readonly branchCount?: number;
+    readonly branchCount: number;
+    readonly branches: [];
 }

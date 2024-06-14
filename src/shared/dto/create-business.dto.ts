@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from "class-validator"
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from "class-validator"
 
 
 export class CreateBusinessDto {
@@ -32,5 +32,9 @@ export class CreateBusinessDto {
     @IsNumber()
     @IsOptional()
     readonly branchCount: number;
+
+    @IsArray()
+    @IsOptional()
+    readonly branches: []
 
 }
