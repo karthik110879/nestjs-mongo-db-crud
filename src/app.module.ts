@@ -7,6 +7,8 @@ import { StudentService } from './service/student/student.service';
 import { StudentController } from './controller/student/student.controller';   
 import { BusinessModule } from './modules/business/business.module'; 
 import { BranchModule } from './modules/branch/branch.module';
+import { UsersModule } from './modules/user/users.module'; 
+import { AuthModule } from './modules/auth/auth.module';
 
 
 @Module({
@@ -14,10 +16,12 @@ import { BranchModule } from './modules/branch/branch.module';
     MongooseModule.forRoot('mongodb+srv://karthik94:krypton94@cluster0dev.ydga44j.mongodb.net/studentdb'), 
     MongooseModule.forFeature([{ name: 'Student', schema: StudentSchema }]),
     BusinessModule,
-    BranchModule
+    BranchModule,
+    UsersModule, 
+    AuthModule
   ],
     
   controllers: [AppController, StudentController],
-  providers: [AppService, StudentService],
+  providers: [AppService, StudentService]
 })
 export class AppModule {}
