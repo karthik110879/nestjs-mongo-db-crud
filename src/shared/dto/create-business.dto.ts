@@ -1,10 +1,11 @@
-import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from "class-validator"
+import { IsArray, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, isEmail } from "class-validator"
 
 
 export class CreateBusinessDto {
 
     @IsString()
     @IsNotEmpty()
+    @IsEmail()
     readonly email: string;
 
     @IsString()

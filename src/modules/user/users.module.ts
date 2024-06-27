@@ -5,6 +5,9 @@ import { UserSchema } from 'src/schema/user.schema';
 import { UsersService } from './users.service';  
 import { AuthService } from '../auth/auth.service';
 import { LocalStrategy } from '../auth/local.strategy';
+import { JwtService } from '@nestjs/jwt';
+import { JwtStrategy } from '../auth/jwt.strategy';
+import { PassportModule } from '@nestjs/passport';
 @Module({
     imports:[
         MongooseModule.forFeature([
@@ -12,10 +15,11 @@ import { LocalStrategy } from '../auth/local.strategy';
                 name: 'User',
                 schema: UserSchema
             }
-        ])
+        ]),
+        PassportModule
     ],
     controllers: [UsersController],
-    providers: [UsersService, LocalStrategy, AuthService],
+    providers: [UsersService, LocalStrategy, AuthService, JwtStrategy, JwtService],
     exports: [
         UsersService
     ]

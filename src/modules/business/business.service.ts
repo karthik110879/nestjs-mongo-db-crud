@@ -8,7 +8,8 @@ import { IBusiness } from 'src/shared/interface/business.interface';
 @Injectable()
 export class BusinessService {
     constructor(
-        @InjectModel('Business') private businessModel: Model<IBusiness>
+        @InjectModel('Business') private businessModel: Model<IBusiness>,
+        
     ) {}
 
     async createBusiness(createBusinessDto: CreateBusinessDto):Promise<IBusiness> {

@@ -1,20 +1,22 @@
-import { Body, Controller, HttpStatus, Post, Request, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Req, Request, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { UserDto } from 'src/shared/dto/user.dto';
 import { UsersService } from './users.service';
-import * as bcrypt from 'bcrypt' 
+import * as bcrypt from 'bcrypt'
 import { LocalAuthGuard } from 'src/common/guards/local-auth.guard';
+import { JwtGuard } from 'src/common/guards/jwt.guard';
 
-@Controller('v1/users')
+// @UseGuards(LocalAuthGuard)
+@Controller('v1/users/')
 export class UsersController {
     constructor(
         private userService: UsersService,
-    ){}
+    ) { }
 
-    @Post('/signup')
+    @Post('signup')
     async createUser(@Body() userDto: UserDto, @Res() res) {
         try {
             const saltOrRounds = 10;
-            const hashedPassword = await bcrypt.hash(userDto.password,saltOrRounds)
+            const hashedPassword = await bcrypt.hash(userDto.password, saltOrRounds)
             // userDto.password = hashedPassword
             const newUser = await this.userService.createUser({
                 userName: userDto.userName.toLowerCase(),
@@ -40,16 +42,15 @@ export class UsersController {
     }
 
     // @UseGuards(LocalAuthGuard)
+
     @Post('/login')
-    async loginUser(@Body() userDto: UserDto, @Res() res) { 
-        try {  
-            const existingUser = await this.userService.signIn(userDto.userName, userDto.password); 
+    async loginUser(@Body() userDto: UserDto, @Res() res) {
+        try {
+            const jwtToken = await this.userService.signIn(userDto.userName, userDto.password);
             return res.status(HttpStatus.CREATED).json(
                 {
                     message: 'User Loggedin successfully',
-                    userId: existingUser.id,
-                    userName: existingUser.userName,
-                    userPass: existingUser.password
+                    token: jwtToken, 
                 }
             )
         } catch (error) {
@@ -62,7 +63,20 @@ export class UsersController {
         }
     }
 
- 
-
+    @UseGuards(JwtGuard)
+    @Get(':id')
+    async getUserProfile(@Param('id') userId: string, @Res() res) {
+        try {
+            const user = await this.userService.getUserById(userId);
+            return res.status(HttpStatus.FOUND).send(user)
+        } catch (error) {
+            return res.status(HttpStatus.BAD_REQUEST).json(
+                {
+                    message: 'Error: User not found',
+                    error: 'Bad Request'
+                }
+            )
+        }
+    }
  
 }

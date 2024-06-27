@@ -9,10 +9,12 @@ import { BusinessModule } from './modules/business/business.module';
 import { BranchModule } from './modules/branch/branch.module';
 import { UsersModule } from './modules/user/users.module'; 
 import { AuthModule } from './modules/auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
 
 
 @Module({
   imports: [ 
+    // PassportModule.register({defaultStrategy: 'jwt'}),
     MongooseModule.forRoot('mongodb+srv://karthik94:krypton94@cluster0dev.ydga44j.mongodb.net/studentdb'), 
     MongooseModule.forFeature([{ name: 'Student', schema: StudentSchema }]),
     BusinessModule,

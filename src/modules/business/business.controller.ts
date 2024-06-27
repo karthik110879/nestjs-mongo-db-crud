@@ -1,8 +1,11 @@
-import { Body, Controller, Delete, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, HttpStatus, Param, Post, Put, Res, UseGuards } from '@nestjs/common';
 import { BusinessService } from './business.service';
 import { CreateBusinessDto } from 'src/shared/dto/create-business.dto';
 import { UpdateBusinessDto } from 'src/shared/dto/update-business.dto';
+import { LocalAuthGuard } from 'src/common/guards/local-auth.guard';
+import { JwtGuard } from 'src/common/guards/jwt.guard';
 
+@UseGuards(JwtGuard)
 @Controller('v1/business')
 export class BusinessController {
     constructor(
