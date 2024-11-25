@@ -15,7 +15,7 @@ import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [ 
     // PassportModule.register({defaultStrategy: 'jwt'}),
-    MongooseModule.forRoot('mongodb+srv://karthik94:krypton94@cluster0dev.ydga44j.mongodb.net/studentdb'), 
+    MongooseModule.forRoot('YOUR_MONGO_PATH'), 
     MongooseModule.forFeature([{ name: 'Student', schema: StudentSchema }]),
     BusinessModule,
     BranchModule,
